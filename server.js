@@ -6,14 +6,14 @@ const app= express();
 
 const User=require('./models/User');
 mongoose.connect('mongodb://localhost/userData',
-	{ useNewUrlParser: true },
-	{ useUnifiedTopology: true }
+  { useNewUrlParser: true },
+  { useUnifiedTopology: true }
 )
 
 app.use(bodyParser.json());
 
 app.listen(port, ()=>{
-	console.log(`server is listening on port:${port}`)
+  console.log(`server is listening on port:${port}`)
 })
 
 function sendResponse(res,err,data){
@@ -48,47 +48,47 @@ function sendResponse(res,err,data){
 
 // CREATE
 app.post('/users',(req,res)=>{
-	User.create(
-		{
-			...req.body.newData
-		},
-		(err,data) => {
-			sendResponse(res,err,data)
-		}
-	)
+  User.create(
+    {
+      ...req.body.newData
+    },
+    (err,data) => {
+      sendResponse(res,err,data)
+    }
+  )
 })
 
 app.route('/users/:id')
 // READ
 .get((req,res)=>{
-	// User.findById()
-	User.findById(req.params.id,(err,data)=>{
-		sendResponse(res,err,data)
-	})
+  // User.findById()
+  User.findById(req.params.id,(err,data)=>{
+    sendResponse(res,err,data)
+  })
 })
 // UPDATE
 .put((req,res)=>{
-	// User.findByIdAndUpdate()
-	User.findByIdAndUpdate(
-		req.params.id,
-		{
-			...req.body.newData
-		},
-		{
-			new:true
-		},
-		(err,data)=>{
-			sendResponse(res,err,data)
-		}
-	)
+  // User.findByIdAndUpdate()
+  User.findByIdAndUpdate(
+    req.params.id,
+    {
+      ...req.body.newData
+    },
+    {
+      new:true
+    },
+    (err,data)=>{
+      sendResponse(res,err,data)
+    }
+  )
 })
 // DELETE
 .delete((req,res)=>{
-	// User.findByIdAndDelete()
-	User.findByIdAndDelete(
-		req.params.id,
-		(err,data)=>{
-			sendResponse(res,err,data)
-		}
-	)
+  // User.findByIdAndDelete()
+  User.findByIdAndDelete(
+    req.params.id,
+    (err,data)=>{
+      sendResponse(res,err,data)
+    }
+  )
 })
